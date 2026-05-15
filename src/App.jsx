@@ -94,6 +94,7 @@ if (finishedPlayers.length === players.length) {
     const tempPlayers = [...sorted];
     const updatedPlayers = [...sorted];
     const newMatches = [];
+    let tableNo = 1;
 
     if (tempPlayers.length % 2 === 1) {
       const byePlayer = [...tempPlayers]
@@ -149,6 +150,7 @@ if (finishedPlayers.length === players.length) {
         newMatches.push({
           id: `${round}-${player1.id}-${opponent.id}`,
           matchNo: matchNumberBase + newMatches.length + 1,
+          tableNo: tableNo++,
           player1,
           player2: opponent,
           result: "",
@@ -488,7 +490,7 @@ const maxSwissRounds =
                 }`}
               >
                 <div className="font-bold text-lg mb-3">
-                  第{match.matchNo}試合：{match.player1.name} VS {match.player2.name}
+                  第{match.tableNo}卓（第{match.matchNo}試合）：{match.player1.name} VS {match.player2.name}
                 </div>
 
                 <div className="flex flex-wrap gap-2">
