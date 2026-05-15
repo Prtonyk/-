@@ -81,6 +81,8 @@ if (finishedPlayers.length === players.length) {
       return;
     }
 
+    const matchNumberBase = (round - 1) * Math.floor(players.length / 2);
+
     const sorted = [...players].sort((a, b) => {
       if (b.points !== a.points) {
         return b.points - a.points;
@@ -146,6 +148,7 @@ if (finishedPlayers.length === players.length) {
 
         newMatches.push({
           id: `${round}-${player1.id}-${opponent.id}`,
+          matchNo: matchNumberBase + newMatches.length + 1,
           player1,
           player2: opponent,
           result: "",
@@ -485,7 +488,7 @@ const maxSwissRounds =
                 }`}
               >
                 <div className="font-bold text-lg mb-3">
-                  {match.player1.name} VS {match.player2.name}
+                  第{match.matchNo}試合：{match.player1.name} VS {match.player2.name}
                 </div>
 
                 <div className="flex flex-wrap gap-2">
