@@ -599,6 +599,12 @@ const maxSwissRounds =
           </div>
         </div>
       </div>
+      {/* フッター */}
+<div className="text-center text-xs opacity-30 mt-10 pb-6 tracking-widest">
+  for NuLL
+</div>
     </div>
+    
   );
+  
 }
