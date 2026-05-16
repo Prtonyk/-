@@ -262,25 +262,6 @@ if (finishedPlayers.length === players.length) {
   setTournamentName("スイスドロー大会");
 };
 
-  const newTournament = {
-    id: Date.now(),
-    name: tournamentName,
-    players,
-    matches,
-    round,
-    date: new Date().toISOString(),
-  };
-
-  const updated = [...tournaments, newTournament];
-  setTournaments(updated);
-
-  setPlayers([]);
-  setMatches([]);
-  setRound(1);
-  setTournamentName("スイスドロー大会");
-  setMaxRounds(1);
-
-};
   
   const editHistory = (playerId, historyIndex) => {
     const newResult = prompt("結果を入力 (Win / Lose / Draw)");
