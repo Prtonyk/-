@@ -298,11 +298,11 @@ const maxSwissRounds =
       }`}
     >
       <button
-      onClick={() => setHistoryOpen(!historyOpen)}
-      className="fixed top-4 left-4 z-50 bg-blue-600 text-white px-4 py-2 rounded-xl shadow-lg"
-    >
-      ☰
-    </button>
+  onClick={() => setHistoryOpen(!historyOpen)}
+  className="fixed bottom-4 right-4 z-50 bg-blue-600 text-white px-4 py-2 rounded-xl shadow-lg"
+>
+  ☰
+</button>
     <div
       className={`
         fixed top-0 left-0 h-full w-72
