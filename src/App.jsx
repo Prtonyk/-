@@ -304,13 +304,14 @@ const maxSwissRounds =
   ☰
 </button>
     <div
-      className={`
-        fixed top-0 left-0 h-full w-72
-        bg-white shadow-2xl z-40
-        transform transition-transform duration-300
-        ${historyOpen ? "translate-x-0" : "-translate-x-full"}
-      `}
-    >
+  className={`
+    fixed top-0 left-0 h-full w-72
+    ${darkMode ? "bg-gray-800 text-white" : "bg-white text-black"}
+    shadow-2xl z-40
+    transform transition-transform duration-300
+    ${historyOpen ? "translate-x-0" : "-translate-x-full"}
+  `}
+>
       <div className="p-4">
 
         <h2 className="text-xl font-bold mb-4">
