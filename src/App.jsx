@@ -10,6 +10,7 @@ export default function SwissTournamentManager() {
   const [darkMode, setDarkMode] = useState(false);
   const [tournaments, setTournaments] = useState([]);
   const [currentTournamentId, setCurrentTournamentId] = useState(null);
+  const [historyOpen, setHistoryOpen] = useState(false);
 
   useEffect(() => {
   const saved = localStorage.getItem("tournaments");
@@ -296,6 +297,61 @@ const maxSwissRounds =
           : "bg-gray-100 text-black"
       }`}
     >
+      <button
+      onClick={() => setHistoryOpen(!historyOpen)}
+      className="fixed top-4 left-4 z-50 bg-blue-600 text-white px-4 py-2 rounded-xl shadow-lg"
+    >
+      ☰
+    </button>
+    <div
+      className={`
+        fixed top-0 left-0 h-full w-72
+        bg-white shadow-2xl z-40
+        transform transition-transform duration-300
+        ${historyOpen ? "translate-x-0" : "-translate-x-full"}
+      `}
+    >
+      <div className="p-4">
+
+        <h2 className="text-xl font-bold mb-4">
+          大会履歴
+        </h2>
+
+        {tournaments.length === 0 && (
+          <p className="opacity-60">
+            履歴なし
+          </p>
+        )}
+
+        {tournaments.map((t) => (
+          <div
+            key={t.id}
+            className="border-b py-3"
+          >
+            <div
+              onClick={() => loadTournament(t)}
+              className="cursor-pointer"
+            >
+              <div className="font-semibold">
+                {t.name}
+              </div>
+
+              <div className="text-xs opacity-60">
+                {new Date(t.date).toLocaleString()}
+              </div>
+            </div>
+
+            <button
+              onClick={() => deleteTournament(t.id)}
+              className="mt-2 bg-red-600 text-white px-2 py-1 rounded-lg text-sm"
+            >
+              削除
+            </button>
+          </div>
+        ))}
+
+      </div>
+    </div>
       <div className="max-w-7xl mx-auto p-6 space-y-6">
         <div
           className={`rounded-3xl shadow-xl p-6 ${
@@ -616,37 +672,7 @@ const maxSwissRounds =
         </div>
       </div>
       
-      <div className="rounded-3xl shadow-xl p-6 bg-white mt-6">
-          <h2 className="text-2xl font-bold mb-4">大会履歴</h2>
-
-          {tournaments.length === 0 && (
-            <p className="opacity-60">過去大会はありません</p>
-          )}
-
-          {tournaments.map((t) => (
-            <div
-              key={t.id}
-              className="flex justify-between items-center border-b py-3"
-            >
-              <div
-                className="cursor-pointer"
-                onClick={() => loadTournament(t)}
-              >
-                <div className="font-semibold">{t.name}</div>
-                <div className="text-xs opacity-60">
-                  {new Date(t.date).toLocaleString()}
-                </div>
-              </div>
-
-              <button
-                onClick={() => deleteTournament(t.id)}
-                className="bg-red-600 text-white px-3 py-1 rounded-xl"
-              >
-                削除
-              </button>
-            </div>
-          ))}
-        </div>
+      
       {/* フッター */}
 <div className="text-center text-xs opacity-30 mt-10 pb-6 tracking-widest">
   for NuLL
