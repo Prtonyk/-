@@ -12,22 +12,12 @@ export default function SwissTournamentManager() {
   const [currentTournamentId, setCurrentTournamentId] = useState(null);
 
   useEffect(() => {
-    const saved = localStorage.getItem("tournaments");
+  const saved = localStorage.getItem("tournaments");
 
-if (saved) {
-  setTournaments(JSON.parse(saved));
-}
-
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      setTournamentName(parsed.tournamentName || "スイスドロー大会");
-      setPlayers(parsed.players || []);
-      setRound(parsed.round || 1);
-      setMaxMatches(parsed.maxMatches || 5);
-      setMatches(parsed.matches || []);
-      setDarkMode(parsed.darkMode || false);
-    }
-  }, []);
+  if (saved) {
+    setTournaments(JSON.parse(saved));
+  }
+}, []);
 
   useEffect(() => {
     localStorage.setItem(
