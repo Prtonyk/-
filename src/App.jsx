@@ -278,10 +278,10 @@ if (finishedPlayers.length === players.length) {
   setMatches([]);
   setRound(1);
   setTournamentName("スイスドロー大会");
-};
-    setMaxRounds(5);
-  };
+  setMaxRounds(1);
 
+};
+  
   const editHistory = (playerId, historyIndex) => {
     const newResult = prompt("結果を入力 (Win / Lose / Draw)");
 
