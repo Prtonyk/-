@@ -50,7 +50,7 @@ if (saved) {
     const updated = tournaments.filter((t) => t.id !== id);
     setTournaments(updated);
   };
-  
+
   const addPlayer = () => {
     if (!playerName.trim()) return;
 
@@ -252,13 +252,25 @@ if (finishedPlayers.length === players.length) {
   };
 
   const resetTournament = () => {
-    if (!confirm("大会データを削除しますか？")) return;
-
-    localStorage.removeItem("swiss-tournament-data");
-
-    setTournamentName("スイスドロー大会");
-    const resetTournament = () => {
   if (!confirm("現在の大会を保存して終了しますか？")) return;
+
+  const newTournament = {
+    id: Date.now(),
+    name: tournamentName,
+    players,
+    matches,
+    round,
+    date: new Date().toISOString(),
+  };
+
+  const updated = [...tournaments, newTournament];
+  setTournaments(updated);
+
+  setPlayers([]);
+  setMatches([]);
+  setRound(1);
+  setTournamentName("スイスドロー大会");
+};
 
   const newTournament = {
     id: Date.now(),
@@ -631,6 +643,11 @@ const maxSwissRounds =
             ))}
           </div>
         </div>
+      </div>
+      <div className="rounded-3xl shadow-xl p-6 bg-white mt-6">
+        <h2>大会履歴</h2>
+
+        {tournaments.map(...)}
       </div>
       {/* フッター */}
 <div className="text-center text-xs opacity-30 mt-10 pb-6 tracking-widest">
