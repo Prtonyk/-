@@ -8,9 +8,15 @@ export default function SwissTournamentManager() {
   const [maxMatches, setMaxMatches] = useState(5);
   const [matches, setMatches] = useState([]);
   const [darkMode, setDarkMode] = useState(false);
+  const [tournaments, setTournaments] = useState([]);
+  const [currentTournamentId, setCurrentTournamentId] = useState(null);
 
   useEffect(() => {
-    const saved = localStorage.getItem("swiss-tournament-data");
+    const saved = localStorage.getItem("tournaments");
+
+if (saved) {
+  setTournaments(JSON.parse(saved));
+}
 
     if (saved) {
       const parsed = JSON.parse(saved);
@@ -25,18 +31,26 @@ export default function SwissTournamentManager() {
 
   useEffect(() => {
     localStorage.setItem(
-      "swiss-tournament-data",
-      JSON.stringify({
-        tournamentName,
-        players,
-        round,
-        maxMatches,
-        matches,
-        darkMode,
-      })
-    );
+  "tournaments",
+  JSON.stringify(tournaments)
+);
   }, [tournamentName, players, round, maxMatches, matches, darkMode]);
 
+  const loadTournament = (t) => {
+    setTournamentName(t.name);
+    setPlayers(t.players);
+    setMatches(t.matches);
+    setRound(t.round);
+    setCurrentTournamentId(t.id);
+  };
+
+  const deleteTournament = (id) => {
+    if (!confirm("この大会を削除しますか？（復元できません）")) return;
+
+    const updated = tournaments.filter((t) => t.id !== id);
+    setTournaments(updated);
+  };
+  
   const addPlayer = () => {
     if (!playerName.trim()) return;
 
@@ -243,9 +257,26 @@ if (finishedPlayers.length === players.length) {
     localStorage.removeItem("swiss-tournament-data");
 
     setTournamentName("スイスドロー大会");
-    setPlayers([]);
-    setMatches([]);
-    setRound(1);
+    const resetTournament = () => {
+  if (!confirm("現在の大会を保存して終了しますか？")) return;
+
+  const newTournament = {
+    id: Date.now(),
+    name: tournamentName,
+    players,
+    matches,
+    round,
+    date: new Date().toISOString(),
+  };
+
+  const updated = [...tournaments, newTournament];
+  setTournaments(updated);
+
+  setPlayers([]);
+  setMatches([]);
+  setRound(1);
+  setTournamentName("スイスドロー大会");
+};
     setMaxRounds(5);
   };
 
