@@ -327,7 +327,9 @@ const maxSwissRounds =
         {tournaments.map((t) => (
           <div
             key={t.id}
-            className="border-b py-3"
+            className={`border-b py-3 ${
+  darkMode ? "border-gray-700" : "border-gray-300"
+}`}
           >
             <div
               onClick={() => loadTournament(t)}
